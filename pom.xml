@@ -89,13 +89,9 @@
     </build>
 
     <modules>
-        <module>shared</module>
-        <module>article-logic</module>
-        <module>android-bluetooth-api</module>
-        <module>android-launcher</module>
-        <module>android</module>
+        <module>client-android</module>
+        <module>client-java</module>
         <module>server</module>
-        <module>server-war</module>
     </modules>
 
 </project>
