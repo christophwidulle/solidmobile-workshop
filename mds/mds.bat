@@ -1,0 +1,1 @@
+java -jar mds-server-1.1-SNAPSHOT-jar-with-dependencies.jar
