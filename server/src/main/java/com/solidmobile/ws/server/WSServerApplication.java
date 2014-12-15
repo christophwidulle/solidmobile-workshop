@@ -11,6 +11,7 @@ import com.solidmobile.server.meta.app.SolidServerApplication;
 @Register
 public class WSServerApplication extends SolidServerApplication {
 
+    public static final String APP_ID = "SM-WS";
     private ILogger log;
 
     @Override
@@ -35,7 +36,7 @@ public class WSServerApplication extends SolidServerApplication {
 
     @Override
     public String getAppId() {
-        return "SM-WS";
+        return APP_ID;
     }
 
     @Override
