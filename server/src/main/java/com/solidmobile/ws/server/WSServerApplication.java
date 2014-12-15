@@ -11,19 +11,18 @@ import com.solidmobile.server.meta.app.SolidServerApplication;
 @Register
 public class WSServerApplication extends SolidServerApplication {
 
-
     private ILogger log;
 
     @Override
     public void onInitialize(final SolidContext context) {
         initLogging(context);
-
-
+        log.info("Server initialisiert.");
     }
 
     @Override
     public void onStart(final SolidContext context) {
         initLogging(context);
+        log.info("Server gestartet.");
     }
 
     @Override
