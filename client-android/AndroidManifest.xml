@@ -1,0 +1,48 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          android:installLocation="preferExternal"
+          android:versionCode="1"
+          android:versionName="1.0"
+          package="com.solidmobile.ws.android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="19"/>
+    <supports-screens android:anyDensity="true"/>
+
+    <application
+        android:label="SolidMobile Workshop Example"
+        android:theme="@style/Solid__Theme"
+        android:name=".WSApplication"
+        android:allowBackup="false">
+
+        <activity
+            android:label="@string/appName"
+            android:launchMode="singleTask"
+            android:name=".MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:label="@string/solid_ui__solidMobileAdmin"
+            android:launchMode="singleTask"
+            android:name="com.solidmobile.client.android.ui.admin.ui.activity.SolidAdminActivity"/>
+
+        <service
+            android:name="com.solidmobile.client.android.service.AndroidSolidClientService"
+            android:exported="false"/>
+
+
+    </application>
+
+</manifest>
