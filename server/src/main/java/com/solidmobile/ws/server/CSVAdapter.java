@@ -55,7 +55,7 @@ public class CSVAdapter implements DataSourceAdapter {
                 String id = valuesString.get(0);
                 String name = valuesString.get(1);
                 String active = valuesString.get(2);
-                values.put("id", ValueFactory.create(Value.Type.TEXT, id));
+                values.put("id", ValueFactory.create(Value.Type.INTEGER, id));
                 values.put("name", ValueFactory.create(Value.Type.TEXT, name));
                 values.put("active", ValueFactory.create(Value.Type.BOOLEAN, active.equals("1")));
                 Entity entity = new Entity(id, entityTypeDefinition.getEntityType(), values);

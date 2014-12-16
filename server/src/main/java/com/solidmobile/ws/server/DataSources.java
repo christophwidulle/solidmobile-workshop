@@ -47,6 +47,8 @@ public class DataSources {
         final DataSourceConfig dataSourceConfig = new DataSourceConfig("ws-csvdata", "Workshop CSV Data");
         dataSourceConfig.getTags().add("ws-csvdata");
 
+        dataSourceConfig.setDataSourceAdapterDefinition(new CSVAdapterDefinition());
+
         final EntityTypeDefinition def = new EntityTypeDefinition(new EntityType("ws-csvdata", "csv"));
 
         final Attribute idAttr = Attribute.builder().id("id").valueType(Value.Type.INTEGER).primary(true).notNull().build();
@@ -57,7 +59,6 @@ public class DataSources {
 
         dataSourceConfig.addUsedEntityType(def);
         //dataSourceConfig.getEntityTypeConfig("testdata").getFilterConfig().add()
-
 
         return dataSourceConfig;
     }

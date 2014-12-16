@@ -92,7 +92,7 @@ public class BotMain {
                         public void on(DataUpdateSyncEvent event) {
                             new DataSourcesPrinter(solidClient).printAll();
                             for (Long clientId : event.getClientIds()) {
-                                new NameSteamer(solidClient).rename(event.getEntityType(), clientId);
+                                //new NameSteamer(solidClient).rename(event.getEntityType(), clientId);
                             }
                         }
                     });

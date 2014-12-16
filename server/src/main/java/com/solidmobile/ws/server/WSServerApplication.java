@@ -30,6 +30,10 @@ public class WSServerApplication extends SolidServerApplication {
         dataSources.grantAppAccessTo(dataSourceConfig.getDataSourceId());
 
 
+        DataSourceConfig csvDataSourceConfig = dataSources.createCSV();
+        context.services().getDataSourceService().install(csvDataSourceConfig);
+        dataSources.grantAppAccessTo(csvDataSourceConfig.getDataSourceId());
+
     }
 
     @Override
