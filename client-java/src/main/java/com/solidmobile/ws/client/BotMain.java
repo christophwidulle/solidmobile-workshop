@@ -38,9 +38,6 @@ public class BotMain {
         WorkshopBot() {
         }
 
-        public void destroy() {
-            solidClient.destroy();
-        }
 
         public void init() {
 

@@ -1,0 +1,8 @@
+CREATE TABLE `testdata` (
+	`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NOT NULL,
+	`active` BINARY(1) NOT NULL DEFAULT '1',
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
