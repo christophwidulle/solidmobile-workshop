@@ -43,6 +43,26 @@ public class DataSources {
     }
 
 
+    public DataSourceConfig createCSV() {
+        final DataSourceConfig dataSourceConfig = new DataSourceConfig("ws-csvdata", "Workshop CSV Data");
+        dataSourceConfig.getTags().add("ws-csvdata");
+
+        final EntityTypeDefinition def = new EntityTypeDefinition(new EntityType("ws-csvdata", "csv"));
+
+        final Attribute idAttr = Attribute.builder().id("id").valueType(Value.Type.INTEGER).primary(true).notNull().build();
+        final Attribute nameAttr = Attribute.builder().id("name").valueType(Value.Type.TEXT).notNull().build();
+        final Attribute activeAttr = Attribute.builder().id("active").valueType(Value.Type.BOOLEAN).notNull().build();
+
+        def.setAttributes(idAttr, nameAttr, activeAttr);
+
+        dataSourceConfig.addUsedEntityType(def);
+        //dataSourceConfig.getEntityTypeConfig("testdata").getFilterConfig().add()
+
+
+        return dataSourceConfig;
+    }
+
+
     public   void grantAppAccessTo(String datasourceId) {
         context.services().getApplicationService().grantAppDataSourceRight(WSServerApplication.APP_ID, datasourceId);
 
