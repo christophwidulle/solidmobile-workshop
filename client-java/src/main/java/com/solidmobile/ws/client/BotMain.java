@@ -4,6 +4,7 @@ import com.solidmobile.client.ISolidClient;
 import com.solidmobile.client.JavaClientConfiguration;
 import com.solidmobile.client.JavaClientConfigurationImpl;
 import com.solidmobile.client.SolidClient;
+import com.solidmobile.client.event.ClientDataSourcesUpdatedEvent;
 import com.solidmobile.client.event.DataUpdateSyncEvent;
 import com.solidmobile.client.event.DeviceAuthenticatedEvent;
 import com.solidmobile.client.sqlite.FileSqliteJdbcDatabase;
@@ -75,16 +76,28 @@ public class BotMain {
                         @Override
                         public void on(DeviceAuthenticatedEvent event) {
                             log().info("bot is authenticated");
+                            afterInit();
                         }
                     });
 
-                    solidClient.internal().getEventService().subscribe().onDataUpdateSync(new EventListener<DataUpdateSyncEvent>() {
+                    solidClient.services().getEventService().subscribe().onDataSourcesUpdated(new EventListener<ClientDataSourcesUpdatedEvent>() {
+                        @Override
+                        public void on(ClientDataSourcesUpdatedEvent event) {
+                            new DataSourcesPrinter(solidClient).printAll();
+                        }
+                    });
+
+                    solidClient.services().getEventService().subscribe().onDataUpdateSync(new EventListener<DataUpdateSyncEvent>() {
                         @Override
                         public void on(DataUpdateSyncEvent event) {
-
-
+                            new DataSourcesPrinter(solidClient).printAll();
+                            for (Long clientId : event.getClientIds()) {
+                                new NameSteamer(solidClient).rename(event.getEntityType(), clientId);
+                            }
                         }
                     });
+
+
                 }
 
 
@@ -104,7 +117,16 @@ public class BotMain {
             return solidClient.services().getClientLogger();
         }
 
+
+        protected void afterInit() {
+            //new EndlessMessageSender(solidClient).start();
+
+
+        }
+
+
     }
+
 
     static class BotSolidClient extends SolidClient {
 

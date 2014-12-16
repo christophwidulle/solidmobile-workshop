@@ -22,7 +22,7 @@ public class DataSources {
     }
 
 
-    public DataSourceConfig create1() {
+    public DataSourceConfig create() {
         final DataSourceConfig dataSourceConfig = new DataSourceConfig("ws-data", "Workshop Data");
         dataSourceConfig.getTags().add("ws-data");
 
@@ -43,7 +43,7 @@ public class DataSources {
     }
 
 
-    private void grantAppAccessTo(String datasourceId) {
+    public   void grantAppAccessTo(String datasourceId) {
         context.services().getApplicationService().grantAppDataSourceRight(WSServerApplication.APP_ID, datasourceId);
 
     }

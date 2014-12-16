@@ -1,8 +1,11 @@
 package com.solidmobile.ws.server;
 
 import com.solidmobile.commons.log.ILogger;
+import com.solidmobile.mds.protocol.message.PayloadMessage;
+import com.solidmobile.protocol.models.config.DataSourceConfig;
 import com.solidmobile.server.core.Register;
 import com.solidmobile.server.core.SolidContext;
+import com.solidmobile.server.message.MessagePayloadTypeHandler;
 import com.solidmobile.server.meta.app.SolidServerApplication;
 
 /**
@@ -18,11 +21,32 @@ public class WSServerApplication extends SolidServerApplication {
     public void onInitialize(final SolidContext context) {
         initLogging(context);
         log.info("Server initialisiert.");
+
+
+        DataSources dataSources = new DataSources(context);
+
+        DataSourceConfig dataSourceConfig = dataSources.create();
+        context.services().getDataSourceService().install(dataSourceConfig);
+        dataSources.grantAppAccessTo(dataSourceConfig.getDataSourceId());
+
+
     }
 
     @Override
     public void onStart(final SolidContext context) {
         initLogging(context);
+
+
+        context.services().getTransportService()
+                .registerMessagePayloadTypeHandler(APP_ID, "endlessPing", new MessagePayloadTypeHandler() {
+                    @Override
+                    public void onHandle(PayloadMessage payloadMessage) {
+                      //  log.info(payloadMessage.getPayload());
+                        System.out.println(payloadMessage.getPayload());
+                    }
+                });
+
+
         log.info("Server gestartet.");
     }
 
