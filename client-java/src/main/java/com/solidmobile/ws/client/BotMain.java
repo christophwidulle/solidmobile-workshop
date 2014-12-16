@@ -41,6 +41,7 @@ public class BotMain {
 
         public void init() {
 
+
             final String mdsurl = "wss://localhost:1337";
             final String serverid = "solidserver";
 
@@ -56,9 +57,10 @@ public class BotMain {
             solidClient.init(Constants.APP_ID, clientConfiguration, new ISolidClient.InitListener() {
                 @Override
                 public void onInitCompleted() {
-
                     if (!isRegistered()) {
+
                         solidClient.internal().getMetaDataService().updateDeviceProfile(deviceProfile);
+
                         solidClient.internal().getClientEventBus().register(ConnectedEvent.class, new EventListener<ConnectedEvent>() {
                             @Override
                             public void on(final ConnectedEvent event) {
