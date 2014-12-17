@@ -10,6 +10,7 @@ import com.solidmobile.protocol.models.entity.values.Value;
 import com.solidmobile.server.core.SolidContext;
 import com.solidmobile.server.data.adapter.jdbc.BaseJdbcDataSourceAdapterDefinition;
 import com.solidmobile.server.data.adapter.jdbc.mysql.MySqlDataSourceAdapterDefinition;
+import com.solidmobile.server.data.filter.UserIdEntityTypeFilterPlugin;
 
 /**
  * @author Christoph Widulle
@@ -41,14 +42,13 @@ public class DataSources {
         EntityTypeFilterConfig filterConfig = new EntityTypeFilterConfig(
                 "com.solidmobile.server.data.filter.UserIdEntityTypeFilterPlugin"
         );
-        filterConfig.addProperty("USER_ID_ATTRIBUTE", "userid");
+        filterConfig.addProperty(UserIdEntityTypeFilterPlugin.USER_ID_ATTRIBUTE, "userid");
 
         dataSourceConfig.getEntityTypeConfig("testdata")
                 .getFilterConfig().add(filterConfig);
 
         dataSourceConfig.getEntityTypeConfig("testdata")
                 .setContextSensitivity(EntityTypeConfig.ContextSensitivity.USER);
-
 
 
         addProps(dataSourceConfig);
