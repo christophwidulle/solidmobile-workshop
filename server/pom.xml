@@ -22,6 +22,12 @@
 
         <dependency>
             <groupId>com.solidmobile</groupId>
+            <artifactId>platform-server-core</artifactId>
+            <version>${solidmobile.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.solidmobile</groupId>
             <artifactId>platform-admin-core</artifactId>
             <version>${solidmobile.version}</version>
             <type>war</type>

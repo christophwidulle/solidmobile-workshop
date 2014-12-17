@@ -1,6 +1,8 @@
 package com.solidmobile.ws.server;
 
 import com.solidmobile.protocol.models.config.DataSourceConfig;
+import com.solidmobile.protocol.models.config.EntityTypeConfig;
+import com.solidmobile.protocol.models.config.EntityTypeFilterConfig;
 import com.solidmobile.protocol.models.entity.Attribute;
 import com.solidmobile.protocol.models.entity.EntityType;
 import com.solidmobile.protocol.models.entity.EntityTypeDefinition;
@@ -26,6 +28,7 @@ public class DataSources {
         final DataSourceConfig dataSourceConfig = new DataSourceConfig("ws-data", "Workshop Data");
         dataSourceConfig.getTags().add("ws-data");
 
+
         final EntityTypeDefinition def = new EntityTypeDefinition(new EntityType("ws-data", "testdata"));
 
         final Attribute idAttr = Attribute.builder().id("id").valueType(Value.Type.INTEGER).primary(true).notNull().build();
@@ -35,7 +38,18 @@ public class DataSources {
         def.setAttributes(idAttr, nameAttr, activeAttr);
 
         dataSourceConfig.addUsedEntityType(def);
-        //dataSourceConfig.getEntityTypeConfig("testdata").getFilterConfig().add()
+        EntityTypeFilterConfig filterConfig = new EntityTypeFilterConfig(
+                "com.solidmobile.server.data.filter.UserIdEntityTypeFilterPlugin"
+        );
+        filterConfig.addProperty("USER_ID_ATTRIBUTE", "userid");
+
+        dataSourceConfig.getEntityTypeConfig("testdata")
+                .getFilterConfig().add(filterConfig);
+
+        dataSourceConfig.getEntityTypeConfig("testdata")
+                .setContextSensitivity(EntityTypeConfig.ContextSensitivity.USER);
+
+
 
         addProps(dataSourceConfig);
 
@@ -64,7 +78,7 @@ public class DataSources {
     }
 
 
-    public   void grantAppAccessTo(String datasourceId) {
+    public void grantAppAccessTo(String datasourceId) {
         context.services().getApplicationService().grantAppDataSourceRight(WSServerApplication.APP_ID, datasourceId);
 
     }
