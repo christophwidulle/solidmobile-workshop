@@ -1,8 +1,6 @@
 package com.solidmobile.ws.server;
 
 import com.solidmobile.protocol.models.config.DataSourceConfig;
-import com.solidmobile.protocol.models.config.EntityTypeConfig;
-import com.solidmobile.protocol.models.config.EntityTypeFilterConfig;
 import com.solidmobile.protocol.models.entity.Attribute;
 import com.solidmobile.protocol.models.entity.EntityType;
 import com.solidmobile.protocol.models.entity.EntityTypeDefinition;
@@ -10,7 +8,6 @@ import com.solidmobile.protocol.models.entity.values.Value;
 import com.solidmobile.server.core.SolidContext;
 import com.solidmobile.server.data.adapter.jdbc.BaseJdbcDataSourceAdapterDefinition;
 import com.solidmobile.server.data.adapter.jdbc.mysql.MySqlDataSourceAdapterDefinition;
-import com.solidmobile.server.data.filter.UserIdEntityTypeFilterPlugin;
 
 /**
  * @author Christoph Widulle
@@ -35,20 +32,11 @@ public class DataSources {
         final Attribute idAttr = Attribute.builder().id("id").valueType(Value.Type.INTEGER).primary(true).notNull().build();
         final Attribute nameAttr = Attribute.builder().id("name").valueType(Value.Type.TEXT).notNull().build();
         final Attribute activeAttr = Attribute.builder().id("active").valueType(Value.Type.BOOLEAN).notNull().build();
+        final Attribute pdfAttr = Attribute.builder().id("pdf").valueType(Value.Type.LARGE_BINARY).build();
 
-        def.setAttributes(idAttr, nameAttr, activeAttr);
+        def.setAttributes(idAttr, nameAttr, activeAttr, pdfAttr);
 
         dataSourceConfig.addUsedEntityType(def);
-        EntityTypeFilterConfig filterConfig = new EntityTypeFilterConfig(
-                "com.solidmobile.server.data.filter.UserIdEntityTypeFilterPlugin"
-        );
-        filterConfig.addProperty(UserIdEntityTypeFilterPlugin.USER_ID_ATTRIBUTE, "userid");
-
-        dataSourceConfig.getEntityTypeConfig("testdata")
-                .getFilterConfig().add(filterConfig);
-
-        dataSourceConfig.getEntityTypeConfig("testdata")
-                .setContextSensitivity(EntityTypeConfig.ContextSensitivity.USER);
 
 
         addProps(dataSourceConfig);

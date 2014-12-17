@@ -3,6 +3,7 @@ package com.solidmobile.ws.client;
 import com.google.common.collect.ImmutableList;
 import com.solidmobile.client.SolidClient;
 import com.solidmobile.client.persistence.ClientDataSource;
+import com.solidmobile.client.persistence.query.Query;
 import com.solidmobile.commons.data.cursor.ClientCursor;
 import com.solidmobile.commons.log.ILogger;
 import com.solidmobile.protocol.models.entity.ClientEntity;
@@ -23,7 +24,13 @@ public class DataSourcesPrinter {
         ILogger log = solidClient.services().getClientLogger();
 
         ImmutableList<? extends ClientDataSource> allDS = solidClient.services().getDataSourceService().findAll();
+
         for (ClientDataSource clientDataSource : allDS) {
+            Query query = Query.where("name").equal("peter").and("age").greaterThan(1);
+
+            clientDataSource.getEntityHandler().findAllCursor("", query);
+
+
             log.info("==== DS = " + clientDataSource.getDataSourceConfig().getDisplayName());
             for (EntityType entityType : clientDataSource.getEntityTypes()) {
                 log.info("--- ET: " + entityType.getId());
